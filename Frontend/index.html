@@ -14,7 +14,13 @@
       <label for="email">Email</label>
       <input type="text" placeholder="Enter Email" name="email" />
       <label for="psw">Password</label>
-      <input type="password" placeholder="Enter Password" name="psw" />
+      <input
+        type="password"
+        placeholder="Enter Password (minimum 8 charaters)"
+        name="psw"
+        minlength="8"
+        required
+      />
       <button type="submit">Log in</button>
       <label>
         <input type="checkbox" checked="checked" name="remember" />Remember me
