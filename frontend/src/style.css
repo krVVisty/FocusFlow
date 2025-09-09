@@ -1,0 +1,35 @@
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+
+body {
+  background-image: url("stack-books.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  font-size: xx-large;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  color: whitesmoke;
+}
+
+@media (max-width: 800px) {
+  .container {
+    height: 150px;
+    width: 100%;
+    gap: 10px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+  }
+}
