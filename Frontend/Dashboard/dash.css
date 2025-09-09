@@ -63,3 +63,17 @@ footer {
     text-align: center;
 }
 
+@media (max-width: 800px){
+    body {
+        grid-template-columns: 1fr;
+ }
+ h1 {
+    grid-column: 1;
+ }
+ .left {
+    grid-column: 1;
+ }
+ .editable {
+    grid-column: 1;
+ }
+}
