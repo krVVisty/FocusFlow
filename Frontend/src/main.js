@@ -1,10 +1,9 @@
-const logIn = document.getElementsByClassName("container");
+const loginForm = document.getElementsByClassName("container");
+const loginButton = document.getElementById("Login-Button");
+const loginErrorMessage = document.getElementById("ErrorMessage");
 
-logIn.addEventlistener("submit", handleSubmit);
-
-function handleSubmit(event) {
-  event.preventDefault();
-  const focusData = new FormData(logIn);
-  const focusValues = Object.fromEntries(focusData);
-  console.log(focusValues);
-}
+loginButton.addEventListener("submit", (handleSubmit) => {
+  handleSubmit.preventDefault();
+  const username = loginForm.username.value;
+  const password = loginForm.password.value;
+});
