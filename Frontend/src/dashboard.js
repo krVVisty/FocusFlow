@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (subjectsBtn)
     subjectsBtn.addEventListener("click", () => {
-      window.location.href = "../Subjects/subjects.html";
+      // (window.location.href = "../Subjects/subjects.html"),
+      window.open("https://www.bbc.co.uk/bitesize/subjects", "_blank");
     });
 
   if (deadlinesBtn)
