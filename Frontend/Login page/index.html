@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/style.css" />
+    <script type="module" src="./src/main.js" defer></script>
+    <title>Welcome Page</title>
+  </head>
+  <body>
+    <header>Welcome to FocusFlow</header>
+    <!-- <div id="login-error-message-container"> -->
+    <!-- <p id="ErrorMessage">Invalid Username and or Password</p> -->
+    <!-- </div> -->
+
+    <div class="container">
+      <label for="uname">Username</label>
+      <input type="text" placeholder="Enter Username" name="uname" />
+      <label for="email">Email</label>
+      <input type="text" placeholder="Enter Email" name="email" />
+      <label for="psw">Password</label>
+      <input
+        type="password"
+        placeholder="Enter Password (minimum 8 charaters)"
+        name="psw"
+        minlength="8"
+        required
+      />
+      <button id="Login-Button" type="submit">Log in</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember" />Remember me
+      </label>
+    </div>
+  </body>
+</html>

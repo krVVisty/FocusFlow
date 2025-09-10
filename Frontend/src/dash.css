@@ -7,13 +7,12 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   display: grid;
-  grid-template-columns: 1fr 1fr; 
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   padding: 20px;
   max-width: 700px;
   margin: auto;
 }
-
 
 h1 {
   grid-column: 1 / span 2;
@@ -24,7 +23,6 @@ h1 {
   margin: 0;
   font-size: xx-large;
   font-weight: bolder;
-
 }
 
 .left {
@@ -57,24 +55,24 @@ h1 {
 }
 
 footer {
-    font-style: italic;
-    width: 100%;
-    color: rgba(220, 157, 157, 0.9);
-    text-align: center;
-    font-weight: bold;
+  font-style: italic;
+  width: 100%;
+  color: rgba(220, 157, 157, 0.9);
+  text-align: center;
+  font-weight: bold;
 }
 
-@media (max-width: 800px){
-    body {
-        grid-template-columns: 1fr;
- }
- h1 {
+@media (max-width: 800px) {
+  body {
+    grid-template-columns: 1fr;
+  }
+  h1 {
     grid-column: 1;
- }
- .left {
+  }
+  .left {
     grid-column: 1;
- }
- .editable {
+  }
+  .editable {
     grid-column: 1;
- }
+  }
 }
