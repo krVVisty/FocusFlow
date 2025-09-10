@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const subjectsBtn = document.querySelector(".Subjects");
-  const deadlinesBtn = document.querySelector(".Deadline.Days");
+  const calendarBtn = document.querySelector(".Calendar");
   const quizBtn = document.querySelector(".quizzes");
 
   if (subjectsBtn)
@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
       window.open("https://www.bbc.co.uk/bitesize/subjects", "_blank");
     });
 
-  if (deadlinesBtn)
-    deadlinesBtn.addEventListener("click", () => {
+  if (calendarBtn)
+    calendarBtnBtn.addEventListener("click", () => {
       window.location.href = "../Calendar/calendar.html";
     });
 
