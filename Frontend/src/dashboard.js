@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (subjectsBtn)
     subjectsBtn.addEventListener("click", () => {
-      // (window.location.href = "../Subjects/subjects.html"),
       window.open("https://www.bbc.co.uk/bitesize/subjects", "_blank");
     });
 
@@ -19,3 +18,47 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Quiz page coming soon!");
     });
 });
+
+  
+  const notesBox = document.getElementById("notes-box");
+  const STORAGE_KEY = "notesContent";
+
+  notesBox.innerHTML = localStorage.getItem(STORAGE_KEY), "";
+
+  notesBox.addEventListener("input", () => {
+    localStorage.setItem(STORAGE_KEY, notesBox.innerHTML);
+  });
+
+ const notesBox = document.getElementById("notes-box");
+
+  async function loadNotes() {
+    try {
+      const res = await fetch("/api/notes");
+      if (!res.ok) throw new Error("Failed to load notes");
+      const data = await res.json();
+      notesBox.innerHTML = data.content || "";
+    } catch (err) {
+      console.error("Error loading notes:", err);
+      notesBox.innerHTML = "";
+    }
+  }
+
+  async function saveNotes() {
+    try {
+      await fetch("/api/notes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: notesBox.innerHTML })
+      });
+    } catch (err) {
+      console.error("Error saving notes:", err);
+    }
+  }
+
+ 
+  notesBox.addEventListener("input", () => {
+    saveNotes();
+  });
+
+ 
+  loadNotes();
