@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   if (calendarBtn)
-    calendarBtnBtn.addEventListener("click", () => {
+    calendarBtn.addEventListener("click", () => {
       window.location.href = "../Calendar/calendar.html";
     });
 
