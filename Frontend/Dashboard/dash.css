@@ -59,8 +59,9 @@ h1 {
 footer {
     font-style: italic;
     width: 100%;
-    color:rgb(255, 132, 56);
+    color: rgba(220, 157, 157, 0.9);
     text-align: center;
+    font-weight: bold;
 }
 
 @media (max-width: 800px){
