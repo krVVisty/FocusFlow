@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     } catch (err) {
       console.error("Error fetching calendar:", err);
-      alert("Cannot fetch calendar data. Check backend.");
+      //   alert("Cannot fetch calendar data. Check backend.");
     }
   }
 
