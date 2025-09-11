@@ -24,9 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (calendarBtn) {
-    calendarBtn.addEventListener("click", () => {
-      window.location.href = "../Calendar/calendar.html";
-    });
+    calendarBtn.addEventListener("click", fetchCalendar);
   }
 
   if (quizBtn) {
@@ -35,9 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Notes input listener (localStorage)
+  // ------------------------------
+  // Notes (backend)
+  // ------------------------------
   if (notesContainer) {
-    // Load saved notes from localStorage
     const STORAGE_KEY = "notesContent";
     notesContainer.innerHTML =
       localStorage.getItem(STORAGE_KEY) || "<p>Notes:</p>";
@@ -65,16 +64,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function fetchCalendar() {
     try {
-      const response = await fetch(`${backendUrl}/calendar`);
+      const response = await fetch(`${backendUrl}/calendar?userId=${userId}`);
       if (!response.ok) throw new Error("Failed to fetch calendar");
       const data = await response.json();
-
-      // Simple alert to show events (replace with proper rendering later)
       alert(
         "Calendar Events:\n" + data.map((ev) => `• ${ev.title}`).join("\n")
       );
-    } catch (error) {
-      console.error("Error fetching calendar:", error);
+    } catch (err) {
+      console.error("Error fetching calendar:", err);
+      alert("Cannot fetch calendar data. Check backend.");
     }
   }
 
@@ -86,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!response.ok) throw new Error("Failed to fetch notes");
       const data = await response.json();
 
-      // Replace localStorage notes with backend notes
       notesContainer.innerHTML =
         "<p>Notes:</p>" + data.map((note) => `<p>${note.content}</p>`).join("");
     } catch (error) {
