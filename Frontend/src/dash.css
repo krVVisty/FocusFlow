@@ -42,7 +42,7 @@ h1 {
 }
 
 .left button:hover {
-  background: #7eabf4;
+  background: rgba(142, 183, 255, 0.9)
 }
 
 #todo {
@@ -57,9 +57,10 @@ h1 {
 footer {
   font-style: italic;
   width: 100%;
-  color: rgba(220, 157, 157, 0.9);
+  color: rgba(0, 0, 0, 0.9);
   text-align: center;
   font-weight: bold;
+  grid-column: 1 / span 2;
 }
 
 @media (max-width: 800px) {
