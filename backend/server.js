@@ -10,6 +10,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ✅ Root endpoint for testing
+app.get("/", (req, res) => {
+  res.send("FocusFlow backend is running 🚀");
+});
+
 // Supabase client
 const supabase = createClient(
   process.env.SUPABASE_URL,
