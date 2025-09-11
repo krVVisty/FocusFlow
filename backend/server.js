@@ -1,5 +1,5 @@
 // backend/server.js
-import express from "express";
+import express, { request, response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
