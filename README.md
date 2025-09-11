@@ -15,6 +15,14 @@ Many students struggle to keep track of their assignments, deadlines, and study 
 - **Front-End Development:** Aren and Callum
 - **Back-End Development:** Adam
 
+### Monday
+
+- Planning stage
+- Created Trello Kanban board for task management
+- Brainstormed project ideas and features
+- Established a Discord channel for team communication
+- Set up GitHub repository
+
 ## Front-End Development
 
 The front-end development went well regarding the design and structure of the application. We completed all the TO-DO tasks we set on Monday. One of the biggest challenges was managing Git branches; there were a few instances where help from Manny, Joe, or Bertie was needed because code had been pushed directly to the main branch.
@@ -22,14 +30,6 @@ The front-end development went well regarding the design and structure of the ap
 We encountered minor issues with locally stored notes, but these were easy to fix. Additionally, we attempted to implement a To-Do task list, but it interfered with the existing CSS design and couldn’t be integrated without adjustments.
 
 ## Back-End Development
-
-### Monday
-
-- Planning stage: Adam and Callum
-- Created Trello Kanban board for task management
-- Brainstormed project ideas and features
-- Established a Discord channel for team communication
-- Set up GitHub repository
 
 ### Tuesday
 
