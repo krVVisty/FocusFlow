@@ -24,9 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (calendarBtn) {
-    calendarBtn.addEventListener("click", fetchCalendar);
+    calendarBtn.addEventListener("click", () => {
+      window.location.href = "../Calendar/calendar.html";
+    });
   }
-
   if (quizBtn) {
     quizBtn.addEventListener("click", () => {
       alert("Quiz page coming soon!");
