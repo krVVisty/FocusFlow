@@ -7,8 +7,26 @@ import { createClient } from "@supabase/supabase-js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
+
+// ✅ CORS configuration
+const allowed = (
+  process.env.ALLOWED_ORIGINS ||
+  "http://localhost:5173,https://focusflow-sp7n.onrender.com"
+)
+  .split(",")
+  .map((s) => s.trim());
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // allow no-origin (Postman, curl) and same-origin
+      if (!origin) return callback(null, true);
+      if (allowed.includes(origin)) return callback(null, true);
+      return callback(new Error("CORS policy: origin not allowed"));
+    },
+  })
+);
 
 // Supabase client
 const supabase = createClient(
