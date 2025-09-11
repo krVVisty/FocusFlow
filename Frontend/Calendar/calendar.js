@@ -13,41 +13,27 @@ let date = new Date();
 let selectedDateKey = "";
 let notes = {};
 
-const backendUrl = "http://localhost:4000/calendar";
-
-async function fetchNotes() {
-  try {
-    const response = await fetch(`${backendUrl}/notes`);
-    if (!response.ok) throw new Error("Failed to fetch notes");
-    const data = await response.json();
-    notes = {}; // reset
-    data.forEach((note) => {
-      notes[note.id] = note.note;
-    });
-  } catch (error) {
-    console.error("Error loading notes:", error);
+function fetchNotes() {
+  const storedNotes = localStorage.getItem("calendarNotes");
+  if (storedNotes) {
+    try {
+      notes = JSON.parse(storedNotes);
+    } catch (error) {
+      console.error("Error parsing notes from localStorage:", error);
+      notes = {};
+    }
+  } else {
+    notes = {};
   }
 }
 
-async function saveNote(dateKey, note) {
-  try {
-    await fetch(`${backendUrl}/notes`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: dateKey,
-        note: note,
-      }),
-    });
-  } catch (error) {
-    console.error("Error saving note:", error);
-  }
+function saveNote(dateKey, note) {
+  notes[dateKey] = note;
+  localStorage.setItem("calendarNotes", JSON.stringify(notes));
 }
 
-async function renderCalendar() {
-  await fetchNotes();
+function renderCalendar() {
+  fetchNotes();
 
   const year = date.getFullYear();
   const month = date.getMonth();
@@ -130,9 +116,9 @@ function closeNoteModal() {
   noteText.value = "";
 }
 
-saveNoteBtn.addEventListener("click", async () => {
+saveNoteBtn.addEventListener("click", () => {
   const content = noteText.value.trim();
-  await saveNote(selectedDateKey, content);
+  saveNote(selectedDateKey, content);
   closeNoteModal();
   renderCalendar();
 });
