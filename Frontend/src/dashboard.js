@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (calendarBtn) {
     calendarBtn.addEventListener("click", fetchCalendar);
+    window.location.href = "../Calendar/calendar.html";
   }
 
   if (quizBtn) {
