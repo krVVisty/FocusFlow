@@ -24,9 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (calendarBtn) {
-    calendarBtn.addEventListener("click", fetchCalendar);
+    calendarBtn.addEventListener("click", () => {
+      window.location.href = "../Calendar/calendar.html";
+    });
   }
-
   if (quizBtn) {
     quizBtn.addEventListener("click", () => {
       alert("Quiz page coming soon!");
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     } catch (err) {
       console.error("Error fetching calendar:", err);
-      alert("Cannot fetch calendar data. Check backend.");
+      //   alert("Cannot fetch calendar data. Check backend.");
     }
   }
 
