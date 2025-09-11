@@ -65,7 +65,7 @@ footer {
 
 @media (max-width: 800px) {
   h1 {
-    grid-column: 1;
+    grid-column: 1 / span 2;
     border-radius: 10px;
     padding: 16px;
     text-align: center;
