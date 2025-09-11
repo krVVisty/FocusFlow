@@ -41,6 +41,8 @@ Many students struggle to keep track of their assignments, deadlines, and study 
 - Aren and Callum refined the look and feel of the dashboard, ensuring visual consistency
 - Minor adjustments were made to fix local notes handling and test user interaction with the UI
 
+We encountered minor issues with storing notes, but these were easy to fix. Additionally, we attempted to implement a To-Do task list, but it interfered with the existing CSS design and couldn’t be integrated without adjustments.
+
 ### Back-End Development
 
 - Established the initial backend infrastructure
