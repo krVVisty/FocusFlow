@@ -1,99 +1,152 @@
+const daysContainer = document.getElementById("calendar-days");
+const monthYearText = document.getElementById("month-year");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+
+const modal = document.getElementById("note-modal");
+const modalDate = document.getElementById("modal-date");
+const noteText = document.getElementById("note-text");
+const saveNoteBtn = document.getElementById("save-note");
+const closeModalBtn = document.getElementById("close-modal");
+
 let date = new Date();
-let year = date.getFullYear();
-let month = date.getMonth();
+let selectedDateKey = "";
+let notes = {};
 
-const day = document.querySelector(".calendar-dates");
-const currdate = document.querySelector(".calendar-current-date");
-const prenexIcons = document.querySelectorAll(".calendar-navigation span");
+const backendUrl = "http://localhost:4000/calendar";
 
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-let clickedDay = null;
-let selectedDayElement = null;
-
-const manipulate = () => {
-  let dayone = new Date(year, month, 1).getDay();
-  let lastdate = new Date(year, month + 1, 0).getDate();
-  let dayend = new Date(year, month, lastdate).getDay();
-  let monthlastdate = new Date(year, month, 0).getDate();
-
-  let lit = "";
-
-  for (let i = dayone; i > 0; i--) {
-    lit += `<li class="inactive">${monthlastdate - i + 1}</li>`;
-  }
-
-  for (let i = 1; i <= lastdate; i++) {
-    let isToday =
-      i === date.getDate() &&
-      month === new Date().getMonth() &&
-      year === new Date().getFullYear()
-        ? "active"
-        : "";
-
-    let highlightClass = clickedDay === i ? "highlight" : "";
-
-    lit += `<li class="${isToday} ${highlightClass}" data-day="${i}">${i}</li>`;
-  }
-
-  for (let i = dayend; i < 6; i++) {
-    lit += `<li class="inactive">${i - dayend + 1}</li>`;
-  }
-
-  currdate.innerText = `${months[month]} ${year}`;
-  day.innerHTML = lit;
-
-  addClickListenersToDays();
-};
-
-function addClickListenersToDays() {
-  const allDays = day.querySelectorAll("li:not(.inactive)");
-  allDays.forEach((li) => {
-    li.addEventListener("click", () => {
-      if (selectedDayElement) {
-        selectedDayElement.classList.remove("highlight");
-      }
-
-      li.classList.add("highlight");
-      selectedDayElement = li;
-
-      clickedDay = parseInt(li.getAttribute("data-day"));
-
-      console.log("Clicked day:", clickedDay);
+async function fetchNotes() {
+  try {
+    const response = await fetch(`${backendUrl}/notes`);
+    if (!response.ok) throw new Error("Failed to fetch notes");
+    const data = await response.json();
+    notes = {}; // reset
+    data.forEach((note) => {
+      notes[note.id] = note.note;
     });
-  });
+  } catch (error) {
+    console.error("Error loading notes:", error);
+  }
 }
 
-manipulate();
+async function saveNote(dateKey, note) {
+  try {
+    await fetch(`${backendUrl}/notes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: dateKey,
+        note: note,
+      }),
+    });
+  } catch (error) {
+    console.error("Error saving note:", error);
+  }
+}
 
-prenexIcons.forEach((icon) => {
-  icon.addEventListener("click", () => {
-    month = icon.id === "calendar-prev" ? month - 1 : month + 1;
+async function renderCalendar() {
+  await fetchNotes();
 
-    if (month < 0 || month > 11) {
-      date = new Date(year, month, new Date().getDate());
-      year = date.getFullYear();
-      month = date.getMonth();
-    } else {
-      date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth();
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const lastDate = new Date(year, month + 1, 0).getDate();
+
+  const today = new Date();
+  const isThisMonth =
+    today.getMonth() === month && today.getFullYear() === year;
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  monthYearText.textContent = `${monthNames[month]} ${year}`;
+
+  daysContainer.innerHTML = "";
+
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  dayNames.forEach((day) => {
+    const dayEl = document.createElement("div");
+    dayEl.classList.add("day");
+    dayEl.textContent = day;
+    daysContainer.appendChild(dayEl);
+  });
+
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement("div");
+    empty.classList.add("date");
+    daysContainer.appendChild(empty);
+  }
+
+  for (let day = 1; day <= lastDate; day++) {
+    const dateEl = document.createElement("div");
+    dateEl.classList.add("date");
+    dateEl.textContent = day;
+
+    const dateKey = `${year}-${month + 1}-${day}`;
+
+    if (isThisMonth && day === today.getDate()) {
+      dateEl.classList.add("today");
     }
 
-    clickedDay = null;
-    selectedDayElement = null;
+    if (notes[dateKey]) {
+      const dot = document.createElement("div");
+      dot.style.background = "#00bcd4";
+      dot.style.width = "6px";
+      dot.style.height = "6px";
+      dot.style.borderRadius = "50%";
+      dot.style.margin = "4px auto 0";
+      dateEl.appendChild(dot);
+    }
 
-    manipulate();
-  });
+    dateEl.addEventListener("click", () => openNoteModal(year, month + 1, day));
+    daysContainer.appendChild(dateEl);
+  }
+}
+
+function openNoteModal(year, month, day) {
+  selectedDateKey = `${year}-${month}-${day}`;
+  modalDate.textContent = `Note for ${month}/${day}/${year}`;
+  noteText.value = notes[selectedDateKey] || "";
+  modal.style.display = "flex";
+}
+
+function closeNoteModal() {
+  modal.style.display = "none";
+  selectedDateKey = "";
+  noteText.value = "";
+}
+
+saveNoteBtn.addEventListener("click", async () => {
+  const content = noteText.value.trim();
+  await saveNote(selectedDateKey, content);
+  closeNoteModal();
+  renderCalendar();
 });
+
+closeModalBtn.addEventListener("click", closeNoteModal);
+
+prevBtn.addEventListener("click", () => {
+  date.setMonth(date.getMonth() - 1);
+  renderCalendar();
+});
+
+nextBtn.addEventListener("click", () => {
+  date.setMonth(date.getMonth() + 1);
+  renderCalendar();
+});
+
+renderCalendar();
